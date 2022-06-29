@@ -1,5 +1,6 @@
 {% extends 'layout.html'%}
 {% load static %}
+{% load humanize%}
 {% block content %}
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
@@ -9,112 +10,39 @@
   </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="card mb-3">
-            <div class="row">
-                <div class="col-md-3">
-                    <img class="card-img" src="{% static 'img/1.jpg'%}">
-                </div>
-                <div class="col-md-9">
-                    <div class="card-body">
-                        <div class="card-title">
-                            Güllü Geliyor Güllü 
+    {%if movies%}
+        {%for movie in movies%}
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img class="card-img" src="{% static movie.get_image_path%}">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <div class="card-title">
+
+                         <a href="{%url 'detail' movie.id%}">{{movie.name}}</a>
+                            </div>
+                            <p class="card-text">
+                               {{movie.description}}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">{{movie.created_date | timesince}}</small>
+                            </p>
                         </div>
-                        <p class="card-text">
-                            (Tabancamın Sapını Gülle Donatacağım)
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">5 Gün Önce</small>
-                        </p>
                     </div>
                 </div>
             </div>
+        {%endfor%}
+    {%else%}
+        <div class="alert alert-warning">
+            <p>Film bulunamadı...</p>
         </div>
 
-        <div class="card mb-3">
-            <div class="row">
-                <div class="col-md-3">
-                    <img class="card-img" src="{% static 'img/2.jpg'%}">
-                </div>
-                <div class="col-md-9">
-                    <div class="card-body">
-                        <div class="card-title">
-                            Şark Bülbülü
-                        </div>
-                        <p class="card-text">
-                            Şark Bülbülü, 1979 yapımı Türk filmi. Şark Bülbülü
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">3 Gün Önce</small>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    {%endif%}
 
-        <div class="card mb-3">
-            <div class="row">
-                <div class="col-md-3">
-                    <img class="card-img" src="{% static 'img/3.jpg'%}">
-                </div>
-                <div class="col-md-9">
-                    <div class="card-body">
-                        <div class="card-title">
-                            Üç Kağıtçı
-                        </div>
-                        <p class="card-text">
-                            Rıfkı (Kemal Sunal), ölen babasının mallarını satmak için Almanya'dan köyüne döner. Köyde birden adı "Ermiş"e çıkar. Rıfkı, yağmur duasına çıkan köylüler için yarım saat içinde yağmur yağdırır. Üfürükçülük yapar. Evde kalmış yaşlı kadınların kısmetini açar. Kötürümleri üfleyerek ayağa kaldırır. Bu arada bazı çıkarcılar, köyün Belediye Reisi seçimlerine Rıfkı'nın girmesini isterler. Bir başka Belediye Reisi adayı ise Rıfkı'ya seçimlere girmemesi için rüşvet verir. Rıfkı seçimleri kazanır, ama sonunda üç kağıtçı olduğu ortaya çıkar
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">2 Gün Önce</small>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mb-3">
-            <div class="row">
-                <div class="col-md-3">
-                    <img class="card-img" src="{% static 'img/4.jpg'%}">
-                </div>
-                <div class="col-md-9">
-                    <div class="card-body">
-                        <div class="card-title">
-                            Propaganda
-                        </div>
-                        <p class="card-text">
-                            Yıl 1948. Doğup büyüdüğü Hisli Hisar kasabasına, Gümrük Muhafaza Müdürü olarak dönen Mehdi ve çocukluk arkadaşı Rahim'in ailelerinin kasabanın ortasından geçen sınır telleri ile parçalanan hayatlarını anlatıyor. Neredeyse yüzyıllardır birlikte yaşayan Hisli Hisarlıların altüst olan sosyal yaşamlarını, aşklarını, ticaretlerinin önünde duran dikenli telleri ve merkezi otoriteye karşı hayatlarını nasıl savunduklarını görüyor, 1948'de yaşanan bu trajikomik öykünün yarım asırdır çok fazla değişime uğramadığına tanık oluyorsunuz. Bu arada Mehdi'nin oğlu Âdem ile Rahim'in kızı Filiz arasındaki tutkulu aşk, aralarından geçen sınır çizgisi nedeniyle iyice imkânsızlaşır.
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">7 Gün Önce</small>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mb-3">
-            <div class="row">
-                <div class="col-md-3">
-                    <img class="card-img" src="{% static 'img/5.jpg'%}">
-                </div>
-                <div class="col-md-9">
-                    <div class="card-body">
-                        <div class="card-title">
-                            Korkusuz Korkak
-                        </div>
-                        <p class="card-text">
-                            Bir şirkette masa başı bir işte çalışan ve fakir bir adam olan Mülayim, kirasını bile ödeyememektedir. İş arkadaşları tarafından ezilen ve ev sahibi tarafından evden atılmakla karşı karşıya kalan Mülayim tam bu dönemde ölümcül bir hastalığa yakalandığını öğrenir. Doktor 6 ay sonra öleceğini, son günlerini dilediği gibi yaşamasını tavsiye eder.
-
-                            Birden değişen Mülayim iş arkadaşları ve patronu tarafından ezilmek bir yana, kendisi patron gibi davranmaya başlar. Mahalleye bırakılmış bir bomba ile oyuncak gibi oynayıp, patlattığı için bombacı Mülayim lakabı takılır. Ancak bu arada aldığı son piyango biletine büyük ikramiyenin çıktığını öğrenir. Altı ay ömrü kaldığını düşünerek, tüm parasıyla bir umumi tuvalet yaptırır. Bu arada mafya babası Ayı Abbas ile Mülayim arasında mücadele başlayacaktır. Ölmek için 6 ay beklemeye sabredemeyen Mülayim, Sansar Selim aracılığıyla kendisini öldürmek üzere Gaddar Kerim'i tutar. Kerim, Abbas'ın adamlarını bertaraf eder. Bu arada aslında gayet sağlıklı olduğunu, doktorun bir hata yaptığını öğrenen Mülayim artık eskisi gibi korkusuz değildir. Hemşire Sevil, Mülayim'e yardımcı olur ama Mülayim korkusunu engelleyemez. Etrafındaki herkesi, kendi tuttuğu ve kimliğini bilmediği kiralık katil sanmaktadır. En sonunda Gaddar Kerim ve Ayı Abbas tarafından sıkıştırılan Mülayim tuhaf bir şekilde her ikisinin elinden de kurtulacaktır.
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">5 Gün Önce</small>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
+     
     </div>
 </div>
 {% endblock %}
