@@ -2,7 +2,7 @@
     <div class="navbar navbar-expand-sm bg-primary navbar-dark">
         <div class="container">
             <a href="{% url 'index'%}" class="navbar-brand mr-auto">Film Uygulaması</a>
-            <ul class="navbar-nav ">
+            <ul class="navbar-nav mr-auto">
                 <li 
                     {% if '/' in request.path%}
                         class="nav-item active"
@@ -32,6 +32,39 @@
                 >
                     <a href="{% url 'movies'%}" class="nav-link">Filmler</a>
                 </li>
+            </ul>
+            <ul class="navbar-nav ">
+            {%if user.is_authenticated%}
+                <li class="nav-item ">     
+                <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">({{user.username}})Çıkış Yap</a>
+                <form action="{% url 'logout' %}" method="post" id="logout">
+                    {%csrf_token%}
+                    <input type="hidden">
+                </form>
+            
+                </li>
+            {%else%}
+                <li 
+                {% if 'login' in request.path%}
+                    class="nav-item active"
+                {%else%}
+                    class="nav-item"
+                {%endif%}>
+
+                <a href="{% url 'login'%}" class="nav-link">Giriş</a>
+                </li>
+                <li 
+                {% if 'register' in request.path%}
+                    class="nav-item active"
+                {%else%}
+                    class="nav-item"
+                {%endif%}>
+
+            <a href="{% url 'register'%}" class="nav-link">Kayıt Ol</a>
+            </li>
+            {%endif%}
+    
+            
             </ul>
         </div>
     </div>
